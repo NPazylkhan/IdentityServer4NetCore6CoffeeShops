@@ -15,32 +15,23 @@ namespace Server
         {
             var services = new ServiceCollection();
             services.AddLogging();
-            services.AddDbContext<AspNetIdentityDbContext>(
-                options => options.UseSqlServer(connectionString)
-                );
+            services.AddDbContext<AspNetIdentityDbContext>(options => options.UseSqlServer(connectionString));
 
-            services
-                .AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AspNetIdentityDbContext>()
                 .AddDefaultTokenProviders();
 
             services.AddOperationalDbContext(
                 options =>
                 {
-                    options.ConfigureDbContext = db =>
-                    db.UseSqlServer(connectionString,
-                    sql => sql.MigrationsAssembly(typeof(SeedData).Assembly.FullName));
-                }
-                );
+                    options.ConfigureDbContext = db => db.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(typeof(SeedData).Assembly.FullName));
+                });
 
             services.AddConfigurationDbContext(
                 options =>
                 {
-                    options.ConfigureDbContext = db =>
-                    db.UseSqlServer(connectionString,
-                    sql => sql.MigrationsAssembly(typeof(SeedData).Assembly.FullName));
-                }
-                );
+                    options.ConfigureDbContext = db => db.UseSqlServer(connectionString, sql => sql.MigrationsAssembly(typeof(SeedData).Assembly.FullName));
+                });
 
             var serviceProvider = services.BuildServiceProvider();
 

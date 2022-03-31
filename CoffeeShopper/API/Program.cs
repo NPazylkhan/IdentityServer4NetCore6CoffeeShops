@@ -18,7 +18,6 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 builder.Services.AddScoped<ICoffeeShopService, CoffeeShopService>();
 
-
 var app = builder.Build();
 
 app.UseAuthentication();

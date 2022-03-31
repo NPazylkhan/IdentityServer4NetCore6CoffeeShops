@@ -9,18 +9,15 @@ namespace Client.Services
         public readonly DiscoveryDocumentResponse discoveryDocument;
         private readonly HttpClient httpClient;
 
-        public TokenService(IOptions<IdentityServerSettings>
-            identityServerSettings)
+        public TokenService(IOptions<IdentityServerSettings> identityServerSettings)
         {
             this.identityServerSettings = identityServerSettings;
             httpClient = new HttpClient();
-            discoveryDocument = httpClient.GetDiscoveryDocumentAsync
-                (this.identityServerSettings.Value.DiscoveryUrl).Result;
+            discoveryDocument = httpClient.GetDiscoveryDocumentAsync(this.identityServerSettings.Value.DiscoveryUrl).Result;
 
             if (discoveryDocument.IsError)
             {
-                throw new Exception("Unable to get discovery document",
-                    discoveryDocument.Exception);
+                throw new Exception("Unable to get discovery document",discoveryDocument.Exception);
             }
         }
 
